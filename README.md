@@ -1,6 +1,6 @@
 # Distributed paper translation MicroService
 
-###What it do?
+## What it do?
 
 Users can upload a foreign language PDF file over the Internet, select a target language, and leave an e-mail address, which is then processed and sent to the user's e-mail address.
 
@@ -10,7 +10,7 @@ Upon receipt, the server performs a series of processing and sends the translate
 
 
 
-### Overall Architecture
+## Overall Architecture
 
 The front-end and back-end are separated and deployed separately.
 
@@ -26,7 +26,7 @@ The front-end framework used is **React**.
 
 
 
-### Technology Selection
+## Technology Selection
 
 - **Golang** language, **micro-go** framework for microservice architecture
 - **mongoDB** for key information storage
@@ -37,7 +37,7 @@ The front-end framework used is **React**.
 
 
 
-### Project Structure
+## Project Structure
 
 ```
 api         protobuf 定义
