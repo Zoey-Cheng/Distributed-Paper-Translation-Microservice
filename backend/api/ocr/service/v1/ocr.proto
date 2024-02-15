@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package ocr.service.v1;
+
+option go_package = "./api/ocr/service/v1;v1";
+
+// OCR参数
+message OCRParam {
+  string bucket = 1; // 图片所在存储bucket
+  string object_key = 2; // 图片在bucket中的key
+  string file_type = 3; // 图片文件类型
+}
+
+// OCR任务ID
+message OCRTaskID {
+  string task_id = 1; // OCR任务ID
+}  
+
+// OCR识别结果
+message OCRText {
+  bool finished = 1; // 识别是否完成
+  string text = 2; // 识别文本内容 
+}
+
+// OCR服务
+service OCRService {
+
+  // 发起OCR识别任务
+  rpc OCR(OCRParam) returns (OCRTaskID);
+
+  // 获取OCR任务状态和结果
+  rpc GetStatus(OCRTaskID) returns(OCRText); 
+
+}

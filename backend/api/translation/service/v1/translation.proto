@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package translation.service.v1;
+
+option go_package = "./api/translation/service/v1;v1";
+
+// 翻译请求
+message Translation {
+  string text = 1; // 待翻译文本
+  string target_language = 2; // 目标语言
+}
+
+// 翻译任务ID
+message TranslationID {
+  string task_id = 1; // 翻译任务ID
+}
+
+// 翻译结果
+message TranslatedText {
+  bool finished = 1; // 翻译是否完成
+  string text = 2; // 翻译后的文本
+}
+
+// 翻译服务
+service TranslationService {
+
+  // 发起翻译请求
+  rpc Translate(Translation) returns (TranslationID);
+
+  // 获取翻译状态和结果
+  rpc GetStatus(TranslationID) returns (TranslatedText);
+
+}

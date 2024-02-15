@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package paper.service.v1;
+
+option go_package = "./api/paper/service/v1;v1";
+
+// 创建论文请求
+message CreatePaper {
+  string paper_file_hash = 1; // 论文文件哈希
+  string email_to = 2; // 接收翻译结果的邮箱
+  string target_language = 3; // 目标语言
+}
+
+// 论文信息
+message Paper {
+
+  enum Status {
+    ocr = 0; // OCR阶段
+    translation = 1; // 翻译阶段
+    finished = 2; // 完成
+    failed = 3; // 失败
+  }
+
+  string id = 1; // 论文ID
+  string file_hash = 2; // 论文文件哈希
+  int64 create_at = 3; // 创建时间
+  Status status = 4; // 状态
+  string target_language = 5; // 目标语言
+  string result_text = 6; // 翻译结果
+}
+
+// 论文ID信息
+message PaperID {
+  string id = 1; // 论文ID
+}
+
+// 删除论文请求
+message DeletePaper {} 
+
+// 批量获取论文请求
+message ReqFetchs {}
+
+// 批量获取论文响应
+message RespFetchs {
+  int32 total = 1; // 总数
+  repeated Paper papers = 2; // 论文列表
+}
+
+// 论文服务
+service PaperService {
+
+  // 创建论文
+  rpc Create(CreatePaper) returns (Paper);
+  
+  // 获取单篇论文
+  rpc Fetch(PaperID) returns (Paper);
+
+  // 删除论文
+  rpc Delete(PaperID) returns (DeletePaper);
+
+  // 批量获取论文
+  rpc Fetchs(ReqFetchs) returns (RespFetchs);
+
+}

@@ -1,0 +1,21 @@
+{
+  "mongo": {
+    "uri": "mongodb://mongo:I8380LHI6P0GMUVV@mongo:27017",
+    "db-name": "ocrs"
+  },
+  "redis": {
+    "uri": "redis://redis:6379"
+  },
+  "aliyun": {
+    "ocr": {
+      "region": "cn-hangzhou",
+      "key_id": "填你自己的",
+      "secret": "填你自己的"
+    },
+    "oss": {
+      "region": "cn-beijing",
+      "key_id": "填你自己的",
+      "secret": "填你自己的"
+    }
+  }
+}

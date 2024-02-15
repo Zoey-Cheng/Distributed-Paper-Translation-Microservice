@@ -1,0 +1,59 @@
+// 指定使用proto3语法
+syntax = "proto3";
+
+package file.service.v1; 
+
+option go_package = "./api/file/service/v1;v1";
+
+// 查询文件信息的请求
+message QueryFile {
+  string hash = 1; // 文件hash
+}
+
+// 文件状态枚举  
+enum FileStatus {
+  Pending = 0; // 等待上传
+  Uploading = 1; // 上传中
+  Uploaded = 2; // 上传完成
+}
+
+// 文件信息  
+message FileInfo {
+  string hash = 1; // 文件hash
+  FileStatus status = 2; // 文件状态
+  int64 chunk_nums = 3; // 分块总数
+  int64 current_index = 4; // 当前分块索引
+  int64 segment_size = 5; // 分段大小
+  optional string bucket = 6; // 存储bucket
+  optional string file_path = 7; // 存储路径  
+}
+
+// 标记分块完成的请求
+message MarkChunk {
+  string hash = 1; // 文件hash
+  int64 chunk_index = 2; // 分块索引  
+}
+
+// 分段上传的参数
+message SegmentUpload {
+  string hash = 1; // 文件hash
+  string filename = 2; // 文件名
+  int64 chunk_nums = 3; // 分块总数
+  int64 segment_size = 4; // 分段大小 
+  string bucket = 5; // 存储bucket
+  string file_path = 6; //存储路径
+}
+
+// 文件服务
+service FileService {
+
+  // 查询文件信息
+  rpc Query(QueryFile) returns (FileInfo);
+  
+  // 标记分块完成
+  rpc MarkChunkOK(MarkChunk) returns (FileInfo);
+
+  // 开始分段上传
+  rpc StartSegmentUpload(SegmentUpload) returns (FileInfo);
+  
+}

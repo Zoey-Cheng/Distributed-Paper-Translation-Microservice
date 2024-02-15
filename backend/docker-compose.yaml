@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  etcd:
+    image: 'bitnami/etcd:latest'
+    container_name: etcd
+    restart: always
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: I8380LHI6P0GMUVV
+
+  redis:
+    image: 'bitnami/redis:latest'
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  file-service:
+    image: file-service:${TAG}
+    container_name: file-service
+    expose:
+      - "4000"
+  ocr-service:
+    image: ocr-service:${TAG}
+    container_name: ocr-service
+    expose:
+      - "4000"
+  translation-service:
+    image: translation-service:${TAG}
+    container_name: translation-service
+    expose:
+      - "4000"
+  paper-service:
+    image: paper-service:${TAG}
+    container_name: paper-service
+    expose:
+      - "4000"
+  email-service:
+    image: email-service:${TAG}
+    container_name: email-service
+    expose:
+      - "4000"
+  frontend:
+    image: frontend:${TAG}
+    container_name: frontend
+    ports:
+      - "80"

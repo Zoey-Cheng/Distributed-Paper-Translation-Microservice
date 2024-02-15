@@ -1,0 +1,8 @@
+{
+  "email": {
+    "address": "smtp.163.com:25",
+    "username": "填你自己的",
+    "password": "填你自己的",
+    "host": "smtp.163.com"
+  }
+}

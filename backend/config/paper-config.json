@@ -1,0 +1,9 @@
+{
+  "mongo": {
+    "uri": "mongodb://mongo:I8380LHI6P0GMUVV@mongo:27017",
+    "db-name": "papers"
+  },
+  "redis": {
+    "uri": "redis://redis:6379"
+  }
+}

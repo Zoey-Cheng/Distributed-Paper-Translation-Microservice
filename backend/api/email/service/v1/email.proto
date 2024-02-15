@@ -1,0 +1,40 @@
+// 指定使用proto3语法
+syntax = "proto3"; 
+
+package email.service.v1;
+
+// 指定生成的Go代码的包路径
+option go_package = "./api/email/service/v1;v1";
+
+// 发送邮件的参数定义
+message SendEmailParam {
+
+  // 收件人邮箱
+  string email_to = 1;  
+
+  // 邮件主题 
+  string subject = 2;   
+
+  // 邮件内容模板
+  string template = 3;
+  
+  // 模板变量替换 
+  map<string, string> vars = 4;
+
+}
+
+// 邮件发送结果状态
+message EmailStatus {
+
+  // 发送状态,true表示成功
+  bool status = 1;     
+
+}
+
+// 邮件服务接口定义
+service EmailService {
+
+  // 发送邮件方法
+  rpc SendEmail(SendEmailParam) returns (EmailStatus);
+
+}
